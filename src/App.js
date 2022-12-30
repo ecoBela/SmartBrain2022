@@ -1,18 +1,33 @@
 import { useState } from "react";
 import "./App.css";
 import Navigation from "./components/Navigation/Navigation";
+import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
 import ParticlesBg from "particles-bg";
+import Clarifai from "clarifai";
+
+const app = new Clarifai.App({
+  apiKey: "",
+});
 
 function App() {
   const [input, setInput] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const onInputChange = (event) => {
-    console.log(event.target.value);
+    setInput(event.target.value);
   };
   const onSubmit = () => {
-    console.log("click");
+    setImageUrl(input);
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, input).then(
+      function (response) {
+        console.log(
+          response.outputs[0].data.regions[0].region_info.bounding_box
+        );
+      },
+      function (error) {}
+    );
   };
 
   return (
@@ -22,8 +37,7 @@ function App() {
       <Logo />
       <Rank />
       <ImageLinkForm onInputChange={onInputChange} onSubmit={onSubmit} />
-
-      {/* <FaceRecognition /> */}
+      <FaceRecognition imageUrl={imageUrl} />
     </div>
   );
 }
