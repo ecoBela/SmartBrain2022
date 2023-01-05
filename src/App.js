@@ -15,19 +15,27 @@ const app = new Clarifai.App({
 function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [box, setBox] = useState({});
+
+  const calculateFaceLocation = (data) => {
+    const ClarifaiFace =
+      data.outputs[0].data.regions[0].region_info_bounding_box;
+    const image = document.getElementById("inputImage");
+    const width = Number(image.width);
+    const height = Number(image.height);
+    console.log(width, height);
+  };
+
   const onInputChange = (event) => {
     setInput(event.target.value);
   };
+
   const onSubmit = () => {
     setImageUrl(input);
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, input).then(
-      function (response) {
-        console.log(
-          response.outputs[0].data.regions[0].region_info.bounding_box
-        );
-      },
-      function (error) {}
-    );
+    app.models
+      .predict(Clarifai.FACE_DETECT_MODEL, input)
+      .then((response) => calculateFaceLocation(response))
+      .catch((err) => console.log(err));
   };
 
   return (
