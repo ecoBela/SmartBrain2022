@@ -9,13 +9,12 @@ import ParticlesBg from "particles-bg";
 import Clarifai from "clarifai";
 
 const app = new Clarifai.App({
-  apiKey: "",
+  apiKey: "f31deb97a0664700931d3a747bda9189",
 });
 
 function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [box, setBox] = useState({});
 
   const calculateFaceLocation = (data) => {
     const ClarifaiFace =
@@ -32,6 +31,7 @@ function App() {
 
   const onSubmit = () => {
     setImageUrl(input);
+    console.log("howdy: before");
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, input)
       .then((response) => calculateFaceLocation(response))
