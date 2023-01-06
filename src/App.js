@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Navigation from "./components/Navigation/Navigation";
+import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
@@ -23,7 +24,7 @@ function App() {
       <Rank />
       <ImageLinkForm onInputChange={onInputChange} onSubmit={onSubmit} />
 
-      {/* <FaceRecognition /> */}
+      <FaceRecognition />
     </div>
   );
 }
