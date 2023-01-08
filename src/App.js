@@ -7,9 +7,11 @@ import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
 import ParticlesBg from "particles-bg";
 import Clarifai from "clarifai";
+import { apiKey } from "./config";
 
+// previous api key has been destroyed and new one created and stored safely.
 const app = new Clarifai.App({
-  apiKey: "", //previous api key has been destroyed.
+  apiKey: apiKey,
 });
 console.log(Clarifai);
 
