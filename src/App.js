@@ -38,7 +38,6 @@ function App() {
       .predict(Clarifai.FACE_DETECT_MODEL, input)
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
-
     console.log("howdy: after");
   };
 
