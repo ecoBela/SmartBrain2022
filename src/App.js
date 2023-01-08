@@ -9,7 +9,7 @@ import ParticlesBg from "particles-bg";
 import Clarifai from "clarifai";
 
 const app = new Clarifai.App({
-  apiKey: "f31deb97a0664700931d3a747bda9189",
+  apiKey: "27a1223eb629408f9f288a4fffd21913",
 });
 
 function App() {
