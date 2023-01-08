@@ -9,8 +9,9 @@ import ParticlesBg from "particles-bg";
 import Clarifai from "clarifai";
 
 const app = new Clarifai.App({
-  apiKey: "27a1223eb629408f9f288a4fffd21913",
+  apiKey: "", //previous api key has been destroyed.
 });
+console.log(Clarifai);
 
 function App() {
   const [input, setInput] = useState("");
@@ -31,13 +32,21 @@ function App() {
     setInput(event.target.value);
   };
 
+  console.log(Clarifai);
+
   const onSubmit = () => {
     setImageUrl(input);
     console.log("howdy: before");
     app.models
-      .predict(Clarifai.FACE_DETECT_MODEL, input)
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+      .predict(
+        {
+          id: Clarifai.FACE_DETECT_MODEL,
+          version: "34ce21a40cc24b6b96ffee54aabff139",
+        },
+        input
+      )
+      .then((response) => console.log("Response", response))
+      .catch((err) => console.log("ERROR", err));
     console.log("howdy: after");
   };
 
