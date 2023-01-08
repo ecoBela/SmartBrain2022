@@ -9,9 +9,8 @@ import ParticlesBg from "particles-bg";
 import Clarifai from "clarifai";
 import { apiKey } from "./config";
 
-// previous api key has been destroyed and new one created and stored safely.
 const app = new Clarifai.App({
-  apiKey: apiKey,
+  apiKey: apiKey, // previous api key has been destroyed and new one created and stored safely.
 });
 console.log(Clarifai);
 
