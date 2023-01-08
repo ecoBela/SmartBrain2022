@@ -12,8 +12,6 @@ const app = new Clarifai.App({
   apiKey: "f31deb97a0664700931d3a747bda9189",
 });
 
-console.log(Clarifai);
-
 function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -29,6 +27,7 @@ function App() {
   // };
 
   const onInputChange = (event) => {
+    console.log(event.target.value);
     setInput(event.target.value);
   };
 
@@ -36,7 +35,7 @@ function App() {
     setImageUrl(input);
     console.log("howdy: before");
     app.models
-      .predict("a403429f2ddf4b49b307e318f00e528b", input)
+      .predict(Clarifai.FACE_DETECT_MODEL, input)
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
 
