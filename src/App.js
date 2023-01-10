@@ -12,32 +12,27 @@ import { apiKey } from "./config";
 const app = new Clarifai.App({
   apiKey: apiKey, // previous api key has been destroyed and new one created and stored safely.
 });
-console.log(Clarifai);
 
 function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  // const [box, setBox] = useState({});
+  const [box, setBox] = useState({});
 
-  // const calculateFaceLocation = (data) => {
-  //   const ClarifaiFace =
-  //     data.outputs[0].data.regions[0].region_info_bounding_box;
-  //   const image = document.getElementById("inputImage");
-  //   const width = Number(image.width);
-  //   const height = Number(image.height);
-  //   console.log(width, height);
-  // };
+  const calculateFaceLocation = (data) => {
+    const clarifaiFace =
+      data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputImage");
+    const width = Number(image.width);
+    const height = Number(image.height);
+    console.log(width, height, clarifaiFace);
+  };
 
   const onInputChange = (event) => {
-    console.log(event.target.value);
     setInput(event.target.value);
   };
 
-  console.log(Clarifai);
-
   const onSubmit = () => {
     setImageUrl(input);
-    console.log("howdy: before");
     app.models
       .predict(
         {
@@ -46,9 +41,8 @@ function App() {
         },
         input
       )
-      .then((response) => console.log("Response", response))
+      .then((response) => calculateFaceLocation(response))
       .catch((err) => console.log("ERROR", err));
-    console.log("howdy: after");
   };
 
   return (
