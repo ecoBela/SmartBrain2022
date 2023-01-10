@@ -24,7 +24,18 @@ function App() {
     const image = document.getElementById("inputImage");
     const width = Number(image.width);
     const height = Number(image.height);
-    console.log(width, height, clarifaiFace);
+
+    return {
+      bottomRow: height - clarifaiFace.bottom_row * height,
+      leftCol: clarifaiFace.left_col * width,
+      rightCol: width - clarifaiFace.right_col * width,
+      topRow: clarifaiFace.top_row * height,
+    };
+  };
+
+  const displayFaceBox = (box) => {
+    console.log({ box });
+    setBox(box);
   };
 
   const onInputChange = (event) => {
@@ -41,7 +52,7 @@ function App() {
         },
         input
       )
-      .then((response) => calculateFaceLocation(response))
+      .then((response) => displayFaceBox(calculateFaceLocation(response)))
       .catch((err) => console.log("ERROR", err));
   };
 
@@ -52,7 +63,7 @@ function App() {
       <Logo />
       <Rank />
       <ImageLinkForm onInputChange={onInputChange} onSubmit={onSubmit} />
-      <FaceRecognition imageUrl={imageUrl} />
+      <FaceRecognition box={box} imageUrl={imageUrl} />
     </div>
   );
 }
