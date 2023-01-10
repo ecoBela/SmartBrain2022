@@ -10,7 +10,7 @@ import Clarifai from "clarifai";
 import { apiKey } from "./config";
 
 const app = new Clarifai.App({
-  apiKey: apiKey, // previous api key has been destroyed and new one created and stored safely.
+  apiKey: apiKey,
 });
 
 function App() {
