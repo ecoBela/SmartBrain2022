@@ -3,6 +3,7 @@ import "./App.css";
 import Navigation from "./components/Navigation/Navigation";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Logo from "./components/Logo/Logo";
+import SignIn from "./components/SignIn/SignIn";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
 import ParticlesBg from "particles-bg";
@@ -17,6 +18,7 @@ function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [box, setBox] = useState({});
+  const [route, setRoute] = useState("SignIn");
 
   const calculateFaceLocation = (data) => {
     const clarifaiFace =
@@ -60,10 +62,15 @@ function App() {
     <div className="App">
       <ParticlesBg className="particles" type="lines" bg={true} />
       <Navigation />
-      <Logo />
-      <Rank />
-      <ImageLinkForm onInputChange={onInputChange} onSubmit={onSubmit} />
-      <FaceRecognition box={box} imageUrl={imageUrl} />
+      {route === "SignIn" && (
+        <div>
+          <SignIn />
+          <Logo />
+          <Rank />
+          <ImageLinkForm onInputChange={onInputChange} onSubmit={onSubmit} />
+          <FaceRecognition box={box} imageUrl={imageUrl} />
+        </div>
+      )}
     </div>
   );
 }
