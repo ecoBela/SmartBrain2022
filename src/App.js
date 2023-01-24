@@ -53,7 +53,7 @@ function App() {
     setInput(event.target.value);
   };
 
-  const onSubmit = () => {
+  const onPictureSubmit = () => {
     setImageUrl(input);
     app.models
       .predict(
@@ -63,7 +63,22 @@ function App() {
         },
         input
       )
-      .then((response) => displayFaceBox(calculateFaceLocation(response)))
+      .then((response) => {
+        if (response) {
+          fetch("http://localhost:3001/image", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              id: user.id,
+            }),
+          })
+            .then((response) => response.json())
+            .then((count) => {
+              setUser(Object.assign(user, { entries: count }));
+            });
+        }
+        displayFaceBox(calculateFaceLocation(response));
+      })
       .catch((err) => console.log("ERROR", err));
   };
 
@@ -81,7 +96,6 @@ function App() {
       id: data.id,
       name: data.name,
       email: data.email,
-      password: data.password,
       entries: data.entries,
       joined: data.joined,
     });
@@ -100,12 +114,15 @@ function App() {
       {route === "home" ? (
         <div>
           <Logo />
-          <Rank />
-          <ImageLinkForm onInputChange={onInputChange} onSubmit={onSubmit} />
+          <Rank name={user.name} entries={user.entries} />
+          <ImageLinkForm
+            onInputChange={onInputChange}
+            onPictureSubmit={onPictureSubmit}
+          />
           <FaceRecognition box={box} imageUrl={imageUrl} />{" "}
         </div>
       ) : route === "signIn" ? (
-        <SignIn onRouteChange={onRouteChange} />
+        <SignIn onRouteChange={onRouteChange} loadUser={loadUser} />
       ) : (
         <Register onRouteChange={onRouteChange} loadUser={loadUser} />
       )}
