@@ -6,15 +6,12 @@ const Register = ({ onRouteChange, loadUser }) => {
   const [password, setPassword] = useState("");
 
   const onNameChange = (event) => {
-    console.log(event.target.value);
     setName(event.target.value);
   };
   const onEmailChange = (event) => {
-    console.log(event.target.value);
     setEmail(event.target.value);
   };
   const onPasswordChange = (event) => {
-    console.log(event.target.value);
     setPassword(event.target.value);
   };
 

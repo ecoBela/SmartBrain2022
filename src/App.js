@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import Navigation from "./components/Navigation/Navigation";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
@@ -101,11 +101,11 @@ function App() {
     });
   };
 
-  useEffect(() => {
-    fetch("http://localhost:3001/")
-      .then((response) => response.json())
-      .then(console.log);
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:3001/")
+  //     .then((response) => response.json())
+  //     .then(console.log);
+  // }, []);
 
   return (
     <div className="App">
