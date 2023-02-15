@@ -75,7 +75,8 @@ function App() {
             .then((response) => response.json())
             .then((count) => {
               setUser(Object.assign(user, { entries: count }));
-            });
+            })
+            .catch(console.log);
         }
         displayFaceBox(calculateFaceLocation(response));
       })
@@ -100,12 +101,6 @@ function App() {
       joined: data.joined,
     });
   };
-
-  // useEffect(() => {
-  //   fetch("http://localhost:3001/")
-  //     .then((response) => response.json())
-  //     .then(console.log);
-  // }, []);
 
   return (
     <div className="App">
