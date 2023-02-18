@@ -74,7 +74,7 @@ function App() {
           })
             .then((response) => response.json())
             .then((count) => {
-              setUser(Object.assign(user, { entries: count }));
+              setUser({ ...user, entries: count });
             })
             .catch(console.log);
         }
