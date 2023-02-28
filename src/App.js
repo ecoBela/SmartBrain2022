@@ -8,12 +8,6 @@ import Register from "./components/Register/Register";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
 import ParticlesBg from "particles-bg";
-import Clarifai from "clarifai";
-import { apiKey } from "./config";
-
-const app = new Clarifai.App({
-  apiKey: apiKey,
-});
 
 function App() {
   const [input, setInput] = useState("");
@@ -55,14 +49,14 @@ function App() {
 
   const onPictureSubmit = () => {
     setImageUrl(input);
-    app.models
-      .predict(
-        {
-          id: Clarifai.FACE_DETECT_MODEL,
-          version: "34ce21a40cc24b6b96ffee54aabff139",
-        },
-        input
-      )
+    fetch("http://localhost:3001/imageURL", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: input,
+      }),
+    })
+      .then((response) => response.json())
       .then((response) => {
         if (response) {
           fetch("http://localhost:3001/image", {
